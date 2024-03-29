@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using RentalCompany.Core.Models;
@@ -10,6 +11,9 @@ namespace RentalCompany.Api.Controllers
     [ApiController]
     public abstract class MainController : ControllerBase
     {
+        protected IMediator Mediator { get; }
+        protected MainController(IMediator mediator) => Mediator = mediator;
+
         protected ApiErrorResponse ApiErrorResponse { get; private set; } = new();
 
         protected ActionResult CustomReponse(object result = null!)

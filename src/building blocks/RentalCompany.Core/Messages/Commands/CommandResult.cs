@@ -2,7 +2,7 @@
 
 namespace RentalCompany.Core.Messages.Commands
 {
-    public class CommandResult<T> : ICommandResult
+    public record CommandResult<T> : ICommandResult
     {
         public CommandResult(bool isSuccess, string message, T data, ValidationResult? validationResult = null)
         {

@@ -1,6 +1,6 @@
-﻿namespace RentalCompany.Api.Models.Request
+﻿namespace RentalCompany.Core.Models
 {
-    public abstract class PagedListQueryBase
+    public abstract record PagedListQueryBase
     {
         public string? GlobalFilter { get; set; }
         public string? SortOrder { get; set; }

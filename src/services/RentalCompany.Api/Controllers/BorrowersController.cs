@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using RentalCompany.Api.Models.Request;
 using RentalCompany.Application.Borrower.Commands.CreateBorrower;
 using RentalCompany.Core.Messages.Commands;
@@ -12,20 +13,15 @@ namespace RentalCompany.Api.Controllers
     [ApiController]
     public class BorrowersController : MainController
     {
+        public BorrowersController(IMediator mediator) : base(mediator) { }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> GetAll(
-            [FromServices] IBorrowerRepository borrowerRepository,
             [FromQuery] GetAllBorrowersPagedQueryRequest queryRequest)
         {
-            var query = await borrowerRepository.GetAllPagedAsync(
-                queryRequest.GlobalFilter,
-                queryRequest.SortOrder,
-                queryRequest.SortField,
-                queryRequest.PageNumber,
-                queryRequest.PageSize);
-
-            return Ok(query);
+            var result = await Mediator.Send(queryRequest.BuildQuery());
+            return Ok(result);
         }
 
         [HttpPost]

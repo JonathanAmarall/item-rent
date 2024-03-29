@@ -6,7 +6,6 @@ using System.Text;
 
 namespace RentalCompany.Core.Helpers
 {
-
     public static class NewtonsoftJsonHelper
     {
         public static JsonSerializerSettings IsoDatetimeJsonSettings => new JsonSerializerSettings

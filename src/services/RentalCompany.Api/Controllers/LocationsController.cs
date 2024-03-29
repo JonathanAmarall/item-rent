@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using RentalCompany.Core.Messages.Commands;
 using RentalCompany.Domain.Commands;
 using RentalCompany.Domain.Entities;
@@ -11,6 +12,8 @@ namespace RentalCompany.Api.Controllers
     [ApiController]
     public class LocationsController : MainController
     {
+        public LocationsController(IMediator mediator) : base(mediator) { }
+
         [HttpGet]
         public async Task<ActionResult<List<Location>>> Get([FromServices] ILocationRepository locationRepository)
         {
@@ -46,7 +49,6 @@ namespace RentalCompany.Api.Controllers
             return CustomReponse(result.Data);
         }
 
-        // TODO: Mover para Command/Handler
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> Delete(Guid id, [FromServices] ILocationRepository locationRepository)
         {

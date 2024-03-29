@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using RentalCompany.Api.Models.Request;
 using RentalCompany.Core.DTOs;
 using RentalCompany.Core.Messages.Commands;
@@ -14,8 +15,10 @@ namespace RentalCompany.Api.Controllers
     [ApiController]
     public class CollectionItemsController : MainController
     {
+        public CollectionItemsController(IMediator mediator) : base(mediator) { }
+
         [HttpGet]
-        public async Task<ActionResult<PagedList<CollectionItem>>> Get(
+        public async Task<ActionResult<PagedList<CollectionItem>>> GetAll(
             [FromServices] ICollectionItemRepository collectionItemRepository,
             [FromQuery] GetAllPagedCollectionItemQueryRequest query)
         {

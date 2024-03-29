@@ -2,7 +2,7 @@
 
 namespace RentalCompany.Core.Messages.Commands
 {
-    public class CommandResult<T> : ICommandResult
+    public record CommandResult<T> : ICommandResult
     {
         public CommandResult(bool isSuccess, string message, T data, ValidationResult? validationResult = null)
         {
@@ -20,7 +20,7 @@ namespace RentalCompany.Core.Messages.Commands
 
         public static ICommandResult Failure(string message, ValidationResult? validationResult)
         {
-            return new CommandResult<T>(false, message, default, validationResult);
+            return new CommandResult<T>(false, message, default!, validationResult);
         }
 
         public static ICommandResult Success(string message, T data)
